@@ -5,15 +5,45 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="0dp"
+        android:layout_height="88dp"
+        android:background="#fe9498"
+        android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <ImageView
+            android:id="@+id/control"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:contentDescription="control medico"
+            android:padding="8dp"
+            android:src="@drawable/baseline_add_alert_24" />
+
+        <ImageView
+            android:id="@+id/vacunacion"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_accessibility_24"
+            android:contentDescription="calendario de vacunacion"
+            android:padding="8dp"  />
+
+        <ImageView
+            android:id="@+id/lactancia"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:contentDescription="consejos de vacunacion"
+            android:padding="8dp"
+            android:src="@drawable/baseline_addchart_24" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
