@@ -1,44 +1,41 @@
 package com.example.materno_infantil
 
-import com.example.materno_infantil.actividades.Vacunacion
+
 import android.os.Bundle
-import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import android.content.Intent
-import com.example.materno_infantil.actividades.ControlMedico
-import com.example.materno_infantil.actividades.Lactancia
+import androidx.fragment.app.Fragment
+import com.example.materno_infantil.controllers.HomeFragment
+import com.example.materno_infantil.controllers.ControlMedicoFragment
+import com.example.materno_infantil.controllers.SettingsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        val iconVacunacion = findViewById<ImageView>(R.id.vacunacion)
-        val iconControl = findViewById<ImageView>(R.id.control)
-        val iconLactancia = findViewById<ImageView>(R.id.lactancia)
+        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        iconVacunacion.setOnClickListener{
-            val tocar = Intent(this, Vacunacion::class.java)
-            startActivity(tocar)
-        }
+        // Fragment inicial
+        loadFragment(HomeFragment())
 
-        iconControl.setOnClickListener{
-            val tocar = Intent(this, ControlMedico::class.java)
-            startActivity(tocar)
+        // Listener para los ítems
+        navView.setOnItemSelectedListener { item ->
+            val fragment: Fragment = when (item.itemId) {
+                R.id.nav_home -> HomeFragment()
+                R.id.nav_control -> ControlMedicoFragment()
+                R.id.nav_settings -> SettingsFragment()
+                else -> HomeFragment()
+            }
+            loadFragment(fragment)
+            true
         }
+    }
 
-        iconLactancia.setOnClickListener{
-            val tocar = Intent(this, Lactancia::class.java)
-            startActivity(tocar)
-        }
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 }
