@@ -7,12 +7,38 @@
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp">
 
-    <TextView
-        android:id="@+id/consejoTextView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="16sp"
-        android:text="Aquí irá el consejo de lactancia" />
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/consejoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/lactancia1"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/consejoTituloTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Título del Consejo"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/consejoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Aquí irá el consejo de lactancia" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
