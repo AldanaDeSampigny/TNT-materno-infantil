@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.materno_infantil.controllers.HomeFragment
-import com.example.materno_infantil.controllers.ControlesFragment
+import com.example.materno_infantil.controllers.ControlMedicoFragment
 import com.example.materno_infantil.controllers.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         navView.setOnItemSelectedListener { item ->
             val fragment: Fragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
-                R.id.nav_control -> ControlesFragment()
+                R.id.nav_control -> ControlMedicoFragment()
+                R.id.nav_consejos ->ConsejosLactanciaFragment()
                 R.id.nav_settings -> SettingsFragment()
                 else -> HomeFragment()
             }

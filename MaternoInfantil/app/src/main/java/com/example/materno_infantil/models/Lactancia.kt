@@ -12,5 +12,4 @@ class Lactancia : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.lactancia)
     }
-
 }
