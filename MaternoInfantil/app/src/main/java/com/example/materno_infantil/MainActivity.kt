@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.materno_infantil.controllers.HomeFragment
 import com.example.materno_infantil.controllers.ControlMedicoFragment
 import com.example.materno_infantil.controllers.SettingsFragment
+import com.example.materno_infantil.controllers.CalendarioVacunasFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_control -> ControlMedicoFragment()
                 R.id.nav_consejos ->ConsejosLactanciaFragment()
                 R.id.nav_settings -> SettingsFragment()
+                R.id.nav_vacunacion -> CalendarioVacunasFragment()
                 else -> HomeFragment()
             }
             loadFragment(fragment)
