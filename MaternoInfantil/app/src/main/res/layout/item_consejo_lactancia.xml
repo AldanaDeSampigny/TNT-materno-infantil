@@ -7,9 +7,11 @@
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/gris"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -17,27 +19,29 @@
             android:id="@+id/consejoImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/lactancia1"
-            android:layout_marginBottom="8dp" />
+            android:src="@drawable/lactancia1" />
 
         <TextView
             android:id="@+id/consejoTituloTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="Título del Consejo"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:text="Título del Consejo"
+            android:textColor="#6617D7"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/consejoTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="Aquí irá el consejo de lactancia" />
+            android:text="Aquí irá el consejo de lactancia"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
