@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materno_infantil.models.ConsejoLactancia
 
+
 class ConsejosLactanciaFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView

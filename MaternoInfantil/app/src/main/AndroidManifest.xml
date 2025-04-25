@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".models.Vacunacion" />
+        <activity android:name=".models.Vacuna" />
         <activity android:name=".models.ControlMedico" />
         <activity android:name=".models.Lactancia" />
 
