@@ -30,8 +30,7 @@ class CategoriaAdapter(private val listaCategorias: List<CategoriaConsejo>) :
 
         // Aquí puedes agregar un OnClickListener para cada tarjeta
         holder.itemView.setOnClickListener {
-            // Acción al hacer clic en la categoría
-            // Por ejemplo, navegar a una lista de consejos de esta categoría
+      /*aca deberia ir a mostrar la lista de consejos de lactancia*/
         }
     }
 
