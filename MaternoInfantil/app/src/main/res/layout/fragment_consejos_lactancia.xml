@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ConsejosLactanciaFragment">
 
-    <!-- TÍTULO CENTRADO ARRIBA -->
-
-    <!-- RECYCLERVIEW OCUPANDO EL RESTO DE LA PANTALLA -->
 
     <TextView
         android:id="@+id/textView3"
