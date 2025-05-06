@@ -1,4 +1,4 @@
-package com.example.materno_infantil
+package com.example.materno_infantil.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.materno_infantil.models.ConsejoLactancia
+import com.example.materno_infantil.R
+import com.example.materno_infantil.models.Consejo
 
 
-class ConsejoLactanciaAdapter(private val consejos: List<ConsejoLactancia>) :
-    RecyclerView.Adapter<ConsejoLactanciaAdapter.ConsejoViewHolder>() {
+class ConsejoAdapter(private val consejos: List<Consejo>) :
+    RecyclerView.Adapter<ConsejoAdapter.ConsejoViewHolder>() {
 
     class ConsejoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val consejoTituloTextView: TextView = itemView.findViewById(R.id.consejoTituloTextView)
@@ -20,7 +21,7 @@ class ConsejoLactanciaAdapter(private val consejos: List<ConsejoLactancia>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConsejoViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_consejo_lactancia, parent, false)
+            .inflate(R.layout.item_consejo, parent, false)
         return ConsejoViewHolder(itemView)
     }
 

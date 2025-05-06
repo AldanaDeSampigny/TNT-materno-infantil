@@ -28,9 +28,7 @@ class CategoriaAdapter(private val listaCategorias: List<CategoriaConsejo>) :
         holder.tituloCategoria.text = categoriaActual.nombre
         holder.imagenCategoria.setImageResource(categoriaActual.imagenResId)
 
-        // Aquí puedes agregar un OnClickListener para cada tarjeta
         holder.itemView.setOnClickListener {
-      /*aca deberia ir a mostrar la lista de consejos de lactancia*/
         }
     }
 

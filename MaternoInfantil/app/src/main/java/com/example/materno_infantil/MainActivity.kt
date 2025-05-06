@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             val fragment: Fragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
                 R.id.nav_control -> ControlesFragment()
-                R.id.nav_consejos -> CategoriaConsejoFragment() // <--- Ahora carga este Fragment
+                R.id.nav_consejos -> ConsejosFragment() // <--- Ahora carga este Fragment
                 R.id.nav_settings -> SettingsFragment()
                 R.id.nav_vacunacion -> CalendarioVacunasFragment()
                 else -> HomeFragment()
