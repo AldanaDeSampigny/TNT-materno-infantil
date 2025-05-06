@@ -5,6 +5,15 @@
     android:layout_margin="4dp"
     android:background="#EDECEC">
 
+    <View
+        android:id="@+id/indicador_vacuna"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="4dp"
+        android:background="@drawable/circulo_vacuna"
+        android:visibility="invisible" />
+
     <TextView
         android:id="@+id/textDia"
         android:layout_width="match_parent"

@@ -11,8 +11,9 @@ import android.view.LayoutInflater
 import android.widget.CheckBox
 import java.time.format.DateTimeFormatter
 
-class VacunaAdapter (private val vacunas: List<Pair<Vacuna, LocalDate>>) :
-    RecyclerView.Adapter<VacunaAdapter.VacunaViewHolder>() {
+class VacunaAdapter (private val vacunas: List<Pair<Vacuna, LocalDate>>,
+                     private val onCambioVacuna: (LocalDate, Boolean) -> Unit // NUEVO: callback al fragmento
+    ) : RecyclerView.Adapter<VacunaAdapter.VacunaViewHolder>() {
 
     inner class VacunaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textNombre: TextView = itemView.findViewById(R.id.textNombreVacuna)
@@ -29,7 +30,13 @@ class VacunaAdapter (private val vacunas: List<Pair<Vacuna, LocalDate>>) :
         val (vacuna, fecha) = vacunas[position]
         holder.textNombre.text = vacuna.nombre
         holder.textFecha.text = "Fecha: ${fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))}"
+        holder.check.setOnCheckedChangeListener(null) // evitar múltiples listeners al reciclar
         holder.check.isChecked = vacuna.recibida
+
+        holder.check.setOnCheckedChangeListener { _, isChecked ->
+            //vacuna.recibida = isChecked //modifica el estado pero como no hay bd no funca
+            onCambioVacuna(fecha, isChecked) // avisamos al fragmento
+        }
     }
 
     override fun getItemCount(): Int = vacunas.size

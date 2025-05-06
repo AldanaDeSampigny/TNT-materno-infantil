@@ -28,6 +28,8 @@ class CalendarioVacunasFragment (private val embarazo : Boolean = true) : Fragme
     private lateinit var btnSiguiente: Button
     private var rootView: View? = null
 
+    private val diasVacunados: MutableSet<LocalDate> = mutableSetOf()
+
     private var currentYear = LocalDate.now().year
     private var currentMonth = LocalDate.now().monthValue
 
@@ -105,11 +107,18 @@ class CalendarioVacunasFragment (private val embarazo : Boolean = true) : Fragme
             it.second.year == currentYear && it.second.monthValue == currentMonth
         }
 
-        val vacunaAdapter = VacunaAdapter(vacunasMes)
+        val vacunaAdapter = VacunaAdapter(vacunasMes) { fecha, marcada ->
+            if (marcada) {
+                diasVacunados.add(fecha)
+            } else {
+                diasVacunados.remove(fecha)
+            }
+            recyclerView.adapter?.notifyDataSetChanged() // forzar refresco del calendario
+        }
         val recyclerVacunas = rootView?.findViewById<RecyclerView>(R.id.recyclerVacunasMes)
         recyclerVacunas?.layoutManager = LinearLayoutManager(requireContext())
         recyclerVacunas?.adapter = vacunaAdapter
 
-        recyclerView.adapter = CalendarAdapter(listaDias, diaMarcado)
+        recyclerView.adapter = CalendarAdapter(listaDias, diaMarcado, diasVacunados)
     }
 }
