@@ -3,23 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
     app:startDestination="@id/categoriaConsejoFragment">
-
     <fragment
         android:id="@+id/categoriaConsejoFragment"
         android:name="com.example.materno_infantil.controllers.CategoriaConsejoFragment"
-        android:label="Categorías">
+        android:label="CategoriaConsejoFragment" >
         <action
-            android:id="@+id/action_categoriaConsejoFragment_to_consejosLactanciaFragment"
-            app:destination="@id/consejosLactanciaFragment" />
+            android:id="@+id/action_categoriaConsejoFragment_to_consejosFragment"
+            app:destination="@id/consejosFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/consejosLactanciaFragment"
+        android:id="@+id/consejosFragment"
         android:name="com.example.materno_infantil.controllers.ConsejosFragment"
-        android:label="Detalle del Consejo">
-        <argument
-            android:name="nombreCategoria"
-            app:argType="string" />
-    </fragment>
-
+        android:label="ConsejosFragment" />
 </navigation>
+

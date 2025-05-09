@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materno_infantil.R
@@ -16,9 +17,9 @@ class CategoriaConsejoFragment : Fragment() {
     private lateinit var categoriaAdapter: CategoriaAdapter
     private lateinit var listaDeCategorias: List<CategoriaConsejo>
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater, 
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_categoria_consejo, container, false)
@@ -26,6 +27,11 @@ class CategoriaConsejoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+       /* binding.startButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToTriviaFragment())
+        }
+        */
         recyclerView = view.findViewById(R.id.recycler_view_categorias)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 

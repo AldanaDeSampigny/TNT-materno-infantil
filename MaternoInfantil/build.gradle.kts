@@ -2,9 +2,15 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+
 }
+
 buildscript {
+    /*repositories {
+        google()
+    }*/
     dependencies {
-        classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.0") // o la versión que uses
+        val nav_version = "2.8.9"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
     }
 }

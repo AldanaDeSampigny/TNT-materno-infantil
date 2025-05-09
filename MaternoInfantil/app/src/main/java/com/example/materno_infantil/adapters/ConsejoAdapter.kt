@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.materno_infantil.R
 import com.example.materno_infantil.models.Consejo
 
-
 class ConsejoAdapter(private val consejos: List<Consejo>) :
     RecyclerView.Adapter<ConsejoAdapter.ConsejoViewHolder>() {
 
@@ -27,6 +26,7 @@ class ConsejoAdapter(private val consejos: List<Consejo>) :
 
     override fun onBindViewHolder(holder: ConsejoViewHolder, position: Int) {
         val consejoActual = consejos[position]
+
         holder.consejoTituloTextView.text = consejoActual.titulo
         holder.consejoTextView.text = consejoActual.texto
         holder.consejoImageView.setImageResource(consejoActual.imagenResId)

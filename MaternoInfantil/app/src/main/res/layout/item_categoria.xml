@@ -15,26 +15,37 @@
         android:background="@color/gris"
         android:padding ="16dp">
 
-        <ImageView
-            android:id="@+id/imagen_categoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/lactancia1" />
+            <ImageView
+                android:id="@+id/imagen_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/lactancia1" />
 
-        <TextView
-            android:id="@+id/titulo_categoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Categoria"
-            android:textColor="#6617D7"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/titulo_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Categoria"
+                android:textColor="#6617D7"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/categoria_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:background="#6617D7"
+                android:text="Ver"
+                android:textSize="18dp"
+                android:layout_marginBottom="2dp"
+                android:onClick="cardOnClick"
+            />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
