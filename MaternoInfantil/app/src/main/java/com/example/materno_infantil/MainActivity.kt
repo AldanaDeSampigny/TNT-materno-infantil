@@ -9,6 +9,7 @@ import com.example.materno_infantil.controllers.ControlesFragment
 import com.example.materno_infantil.controllers.SettingsFragment
 import com.example.materno_infantil.controllers.CategoriaConsejoFragment
 import com.example.materno_infantil.controllers.CalendarioVacunasFragment
+import com.example.materno_infantil.controllers.RegistroComidasFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> HomeFragment()
                 R.id.nav_control -> ControlesFragment()
                 R.id.nav_consejos -> CategoriaConsejoFragment() // <--- Ahora carga este Fragment
-                R.id.nav_settings -> SettingsFragment()
+                R.id.nav_settings -> RegistroComidasFragment()   //POR AHORA SE QUEDA ACA PERO LA IDEA ES QUE SE VEA DESDE EL CARUSEL DEL PRINCIPIO
                 R.id.nav_vacunacion -> CalendarioVacunasFragment()
                 else -> HomeFragment()
             }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/categoriaConsejoFragment">
+    <fragment
+        android:id="@+id/categoriaConsejoFragment"
+        android:name="com.example.materno_infantil.controllers.CategoriaConsejoFragment"
+        android:label="CategoriaConsejoFragment" >
+        <action
+            android:id="@+id/action_categoriaConsejoFragment_to_consejosFragment"
+            app:destination="@id/consejosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consejosFragment"
+        android:name="com.example.materno_infantil.controllers.ConsejosFragment"
+        android:label="ConsejosFragment" />
+</navigation>
+
