@@ -34,7 +34,7 @@ class VacunaAdapter (private val vacunas: List<Pair<Vacuna, LocalDate>>,
         holder.check.isChecked = vacuna.recibida
 
         holder.check.setOnCheckedChangeListener { _, isChecked ->
-            //vacuna.recibida = isChecked //modifica el estado pero como no hay bd no funca
+            vacuna.recibida = isChecked //modifica el estado pero como no hay bd no funca
             onCambioVacuna(fecha, isChecked) // avisamos al fragmento
         }
     }
