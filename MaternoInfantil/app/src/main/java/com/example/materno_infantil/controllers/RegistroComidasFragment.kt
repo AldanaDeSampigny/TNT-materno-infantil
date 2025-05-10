@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,61 +21,83 @@ class RegistroComidasFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var comidasAdapter: ComidasAdapter
-    private lateinit var listaComidas: List<Comida>
+    private lateinit var fechaTextView: TextView
+    private lateinit var botonAnterior: Button
+    private lateinit var botonSiguiente: Button
 
+    private val fechas = listOf("08/05/2025", "09/05/2025", "10/05/2025","11/05/2025")
+    private var indiceActual = 0
+
+    private val comidasPorFecha: Map<String, List<Comida>> = mapOf(
+        "08/05/2025" to listOf(
+            Comida("• Desayuno", "1 taza de leche descremada con café\n2 tostadas integrales con mermelada sin azúcar"),
+            Comida("• Almuerzo", "Pechuga de pollo a la plancha\nEnsalada de hojas verdes con tomate y zanahoria\n1 vaso de agua"),
+            Comida("• Merienda", "1 yogur natural con avena y frutas secas\n1 infusión sin azúcar"),
+            Comida("• Cena", "Sopa de verduras\nTortilla de papas al horno\n1 fruta (manzana o pera)")
+        ),
+        "09/05/2025" to listOf(
+            Comida("• Desayuno", "Yogur con cereales integrales\n1 banana"),
+            Comida("• Almuerzo", "Milanesa de soja\nPuré de calabaza\nAgua saborizada natural"),
+            Comida("• Merienda", "Licuado de leche con frutilla\nGalletas integrales con queso untable"),
+            Comida("• Cena", "Tarta de verduras (acelga y ricota)\nEnsalada de tomate\n1 vaso de agua")
+        ),
+        "10/05/2025" to listOf(
+            Comida("• Desayuno", "Infusión de manzanilla\nTostadas con palta y tomate\n1 fruta"),
+            Comida("• Almuerzo", "Fideos integrales con salsa casera de tomate y albahaca\n1 fruta de postre"),
+            Comida("• Merienda", "Pan integral con queso y mermelada\n1 té verde"),
+            Comida("• Cena", "Filete de pescado al horno\nPapas al vapor con orégano\n1 yogur natural")
+        ),
+        "11/05/2025" to listOf(
+            Comida("• Desayuno", "Infusión sin cafeína\nTostadas con queso untable y miel\n1 jugo natural de naranja"),
+            Comida("• Almuerzo", "Tortilla de zapallitos\nEnsalada de arroz integral y lentejas\n1 fruta fresca"),
+            Comida("• Merienda", "Batido de banana con leche\nGalletas de avena caseras"),
+            Comida("• Cena", "Sopa de verduras casera\nRevuelto de espinaca y huevo\n1 vaso de leche tibia")
+        )
+    )
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            val rootView = inflater.inflate(R.layout.fragment_registro_comidas, container, false)
-            recyclerView = rootView.findViewById(R.id.consejosLactanciaRecyclerView)
-            return rootView
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val rootView = inflater.inflate(R.layout.fragment_registro_comidas, container, false)
+
+        recyclerView = rootView.findViewById(R.id.consejosLactanciaRecyclerView)
+        fechaTextView = rootView.findViewById(R.id.dia)
+        botonAnterior = rootView.findViewById(R.id.diaAnterior)
+        botonSiguiente = rootView.findViewById(R.id.diaSiguiente)
+
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        comidasAdapter = ComidasAdapter(emptyList())
+        recyclerView.adapter = comidasAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        actualizarVista()
+
+        botonAnterior.setOnClickListener {
+            if (indiceActual > 0) {
+                indiceActual--
+                actualizarVista()
+            }
         }
 
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-
-            /* binding.startButton.setOnClickListener { view: View ->
-                 view.findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToTriviaFragment())
-             }
-             */
-
-            listaComidas= listOf(
-                Comida("• Desayuno", "1 vaso de leche descremada o bebida vegetal fortificada\n" +
-                        "\n" +
-                        "2 tostadas integrales con queso fresco y palta\n" +
-                        "\n" +
-                        "1 huevo revuelto\n" +
-                        "\n" +
-                        "1 fruta (banana, manzana o pera)"),
-                Comida("• Media Mañana", "Un puñado de frutos secos (almendras o nueces sin sal)\n" +
-                        "\n" +
-                        "1 yogur natural con cereales integrales o semillas de chía"),
-                Comida("• Almuerzo"," Filete de pollo a la plancha o legumbres (lentejas, garbanzos)\n" +
-                        "\n" +
-                        "Ensalada variada con vegetales de hojas verdes, tomate y zanahoria\n" +
-                        "\n" +
-                        "Arroz integral o puré de papas\n" +
-                        "\n" +
-                        "Agua o limonada natural"),
-                Comida("• Merienda", "Licuado de leche con banana\n" +
-                        "\n" +
-                        "1 tostada integral con ricota y miel\n" +
-                        "\n" +
-                        "Infusión sin cafeína (como manzanilla)"),
-                Comida("• Cena", "Omelette con espinaca y queso\n" +
-                        "\n" +
-                        "Calabaza al horno con orégano\n" +
-                        "\n" +
-                        "1 vaso de leche o yogur\n" +
-                        "\n" +
-                        "1 fruta fresca")
-            )
-
-            val comidaAdapter = ComidasAdapter(listaComidas)
-            recyclerView.adapter = comidaAdapter
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        botonSiguiente.setOnClickListener {
+            if (indiceActual < fechas.size - 1) {
+                indiceActual++
+                actualizarVista()
+            }
         }
     }
+
+    private fun actualizarVista() {
+        val fecha = fechas[indiceActual]
+        fechaTextView.text = fecha
+        val comidas = comidasPorFecha[fecha] ?: emptyList()
+        comidasAdapter.actualizarComidas(comidas)
+    }
+}

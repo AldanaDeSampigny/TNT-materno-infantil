@@ -65,7 +65,6 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui-ktx:$nav_version")
     // Feature module support for Fragments
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
-
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
 }

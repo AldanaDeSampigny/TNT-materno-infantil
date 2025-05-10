@@ -43,11 +43,6 @@
 
     </LinearLayout>
 
-    <!-- Imagen inferior -->
-    <ImageView
-        android:id="@+id/imageViewBottom"
-        android:layout_width="423dp"
-        android:layout_height="168dp"
-        app:srcCompat="@drawable/bebe_home2" />
+
 
 </LinearLayout>

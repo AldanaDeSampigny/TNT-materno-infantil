@@ -6,6 +6,38 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/diaAnterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            android:text="&lt;"
+            android:textColorLink="@color/purple_200" />
+
+        <TextView
+            android:id="@+id/dia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp"
+            android:text="Mes actual"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/diaSiguiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            android:text="&gt;" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/titulo"
         android:layout_width="match_parent"
