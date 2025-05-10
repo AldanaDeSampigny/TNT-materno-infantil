@@ -38,11 +38,9 @@ class CalendarAdapter(private val dias: List<String>, private val diasMarcados: 
             )
 
             val dia = diaTexto.toIntOrNull()
-            val fecha = LocalDate.of(LocalDate.now().year, LocalDate.now().month, dia!!)
-            if (diasVacunados.contains(fecha)) {
-                indicadorVacuna.visibility = View.VISIBLE
-            } else {
-                indicadorVacuna.visibility = View.INVISIBLE
+            val vacuna = dia?.let { diasMarcados[it] }
+            if(vacuna != null && vacuna.recibida){
+            indicadorVacuna.visibility = View.VISIBLE
             }
 
             holder.itemView.setOnClickListener {
@@ -58,6 +56,7 @@ class CalendarAdapter(private val dias: List<String>, private val diasMarcados: 
         } else {
             holder.itemView.setBackgroundColor(Color.TRANSPARENT)
             holder.itemView.setOnClickListener(null)
+            indicadorVacuna.visibility = View.INVISIBLE
         }
     }
 
