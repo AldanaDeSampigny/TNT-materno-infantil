@@ -14,8 +14,8 @@
         android:title="Vacunas" />
     <item
         android:id="@+id/nav_consejos"
-        android:icon="@drawable/baseline_add_chart_24"
-        android:title="Consejos" />
+        android:icon="@drawable/icono_comida"
+        android:title="Registro Comidas" />
 
     <item
         android:id="@+id/nav_settings"
