@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/baseline_add_home_24"
         android:title="Inicio" />
     <item
-        android:id="@+id/nav_control"
+        android:id="@+id/controlesFragment"
         android:icon="@drawable/baseline_add_alert_24"
         android:title="Controles médicos" />
     <item
-        android:id="@+id/nav_vacunacion"
+        android:id="@+id/calendarioVacunasFragment"
         android:icon="@drawable/vacunas"
         android:title="Vacunas" />
     <item
-        android:id="@+id/nav_consejos"
+        android:id="@+id/registroComidasFragment"
         android:icon="@drawable/icono_comida"
         android:title="Registro Comidas" />
 
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/baseline_app_settings_alt_24"
         android:title="Configuración" />
 </menu>

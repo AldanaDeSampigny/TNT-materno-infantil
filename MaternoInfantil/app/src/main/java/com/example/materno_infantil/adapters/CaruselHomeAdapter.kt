@@ -12,7 +12,8 @@ import com.example.materno_infantil.model.CategoriaConsejo
 
 data class CarouselItem(val imageResId: Int, val titulo: String)
 
-class CaruselHomeAdapter(private val items: List<CategoriaConsejo>) :
+class CaruselHomeAdapter(private val items: List<CategoriaConsejo>,
+                         private val onItemClick: (CategoriaConsejo) -> Unit) :
     RecyclerView.Adapter<CaruselHomeAdapter.CarouselViewHolder>() {
 
     class CarouselViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -34,6 +35,9 @@ class CaruselHomeAdapter(private val items: List<CategoriaConsejo>) :
         holder.imagenCarusel.setImageResource(itemCarusel.imagenResId)
         holder.likeImage.setOnClickListener{
            like =  likeAnimation(holder.likeImage,R.raw.heart,like)
+        }
+        holder.itemView.setOnClickListener {
+            onItemClick(itemCarusel)
         }
     }
 

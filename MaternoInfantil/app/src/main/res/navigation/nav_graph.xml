@@ -1,19 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/categoriaConsejoFragment">
+    app:startDestination="@id/homeFragment">
+
     <fragment
-        android:id="@+id/categoriaConsejoFragment"
-        android:name="com.example.materno_infantil.controllers.CategoriaConsejoFragment"
-        android:label="CategoriaConsejoFragment" >
+        android:id="@+id/homeFragment"
+        android:name="com.example.materno_infantil.controllers.HomeFragment"
+        android:label="HomeFragment" >
         <action
-            android:id="@+id/action_categoriaConsejoFragment_to_consejosFragment"
+            android:id="@+id/action_homeFragment_to_consejosFragment"
             app:destination="@id/consejosFragment" />
     </fragment>
     <fragment
         android:id="@+id/consejosFragment"
         android:name="com.example.materno_infantil.controllers.ConsejosFragment"
-        android:label="ConsejosFragment" />
+        android:label="ConsejosFragment" >
+        <argument
+            android:name="nombreCategoria"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/calendarioVacunasFragment"
+        android:name="com.example.materno_infantil.controllers.CalendarioVacunasFragment"
+        android:label="CalendarioVacunasFragment" />
+    <fragment
+        android:id="@+id/registroComidasFragment"
+        android:name="com.example.materno_infantil.controllers.RegistroComidasFragment"
+        android:label="RegistroComidasFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.materno_infantil.controllers.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/controlesFragment"
+        android:name="com.example.materno_infantil.controllers.ControlesFragment"
+        android:label="ControlesFragment" />
+
 </navigation>
 
