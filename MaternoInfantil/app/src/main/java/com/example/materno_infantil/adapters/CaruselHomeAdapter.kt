@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.materno_infantil.R
 import com.example.materno_infantil.model.CategoriaConsejo
 
@@ -17,6 +18,7 @@ class CaruselHomeAdapter(private val items: List<CategoriaConsejo>) :
     class CarouselViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imagenCarusel: ImageView = itemView.findViewById(R.id.imageView)
         val tituloCarusel: TextView = itemView.findViewById(R.id.titleTextView)
+        val likeImage : ImageView = itemView.findViewById(R.id.likeImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarouselViewHolder {
@@ -27,9 +29,22 @@ class CaruselHomeAdapter(private val items: List<CategoriaConsejo>) :
 
     override fun onBindViewHolder(holder: CarouselViewHolder, position: Int) {
         val itemCarusel = items[position]
+        var like = false
         holder.tituloCarusel.text = itemCarusel.nombre
         holder.imagenCarusel.setImageResource(itemCarusel.imagenResId)
+        holder.likeImage.setOnClickListener{
+           like =  likeAnimation(holder.likeImage,R.raw.heart,like)
+        }
+    }
 
+    private fun likeAnimation(imageView: ImageView, animation: Int, like:Boolean) : Boolean{
+        if(!like){
+            imageView.setImageResource(R.drawable.heart_relleno)
+        }
+        else{
+            imageView.setImageResource(R.drawable.heart_red)
+        }
+        return !like
     }
 
     override fun getItemCount() = items.size

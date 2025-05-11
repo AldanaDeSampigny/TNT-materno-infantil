@@ -65,6 +65,8 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui-ktx:$nav_version")
     // Feature module support for Fragments
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+    implementation("com.airbnb.android:lottie:6.6.6")
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
 
 }

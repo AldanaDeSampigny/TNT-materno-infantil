@@ -17,6 +17,8 @@ class HomeFragment : Fragment() {
     private lateinit var caruselAdapter: CaruselHomeAdapter
     private lateinit var items: List<CategoriaConsejo>
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
