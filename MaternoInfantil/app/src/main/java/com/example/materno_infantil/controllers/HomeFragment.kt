@@ -10,21 +10,21 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.viewModels
 import com.example.materno_infantil.R
 import com.example.materno_infantil.adapters.CaruselHomeAdapter
-import com.example.materno_infantil.adapters.CarouselItem
+import com.example.materno_infantil.models.CarouselItem
 import com.example.materno_infantil.model.CategoriaConsejo
+import com.example.materno_infantil.viewModels.CategoriasViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var caruselAdapter: CaruselHomeAdapter
-    private lateinit var items: List<CategoriaConsejo>
+    private lateinit var items: MutableList<CategoriaConsejo>
+    private val categoriaViewModel: CategoriasViewModel by viewModels()
 
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -34,22 +34,17 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewCarousel)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        items = listOf(
-            CategoriaConsejo( "Lactancia",R.drawable.lactancia1,),
-            CategoriaConsejo( "Sueño seguro",R.drawable.dormir4,),
-            CategoriaConsejo("Enfermedades Repiratorias",R.drawable.respiratorias2,),
-            CategoriaConsejo( "Alimentacion", R.drawable.alimentacion3),
-            CategoriaConsejo( "Epidemeologia",R .drawable.dormir3,),
-        )
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
 
-        caruselAdapter = CaruselHomeAdapter(items){ categoria ->
-            val action = HomeFragmentDirections.actionHomeFragmentToConsejosFragment(categoria.nombre)
-            view.findNavController().navigate(action)
+        categoriaViewModel.items.observe(viewLifecycleOwner) { lista ->
+            caruselAdapter = CaruselHomeAdapter(lista) { categoria ->
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToConsejosFragment(categoria.nombre)
+                view.findNavController().navigate(action)
+            }
+            recyclerView.adapter = caruselAdapter
         }
-        recyclerView.adapter = caruselAdapter
-    }
-}
+    }}
 

@@ -36,10 +36,10 @@ class CategoriaConsejoFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
         listaDeCategorias = listOf(
-            CategoriaConsejo("Lactancia", R.drawable.lactancia1),
-            CategoriaConsejo("Sueño seguro", R.drawable.lactancia1),
-            CategoriaConsejo("Enfermedades Respiratorias", R.drawable.lactancia1),
-            CategoriaConsejo("Alimentacion", R.drawable.lactancia1)
+            CategoriaConsejo("Lactancia", R.drawable.lactancia1, false),
+            CategoriaConsejo("Sueño seguro", R.drawable.lactancia1,false),
+            CategoriaConsejo("Enfermedades Respiratorias", R.drawable.lactancia1,false),
+            CategoriaConsejo("Alimentacion", R.drawable.lactancia1,false)
         )
 
         categoriaAdapter = CategoriaAdapter(listaDeCategorias)
