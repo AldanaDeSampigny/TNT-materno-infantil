@@ -19,7 +19,8 @@
         android:label="ConsejosFragment" >
         <argument
             android:name="nombreCategoria"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="lactancia"/>
     </fragment>
     <fragment
         android:id="@+id/calendarioVacunasFragment"

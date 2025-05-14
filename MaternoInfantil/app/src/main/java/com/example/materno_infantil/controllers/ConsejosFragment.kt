@@ -5,16 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materno_infantil.models.Consejo
 import com.example.materno_infantil.adapters.ConsejoAdapter
 import com.example.materno_infantil.R
+import android.widget.TextView
 
+import android.util.Log
 class ConsejosFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    //private lateinit var binding: FragmentConsejosLactanciaBinding
+    private lateinit var tituloCategoriaTextView : TextView
+    
+    private val args: ConsejosFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,17 +33,19 @@ class ConsejosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("CONSEJOS", "Args: "+args)
 
-        val nombreCategoria = "enfermedades respiratorias"
+        tituloCategoriaTextView = view.findViewById(R.id.tituloCategoriatextView)
+        tituloCategoriaTextView.text = args.nombreCategoria
 
-        val consejoAdapter = ConsejoAdapter(obtenerListaDeConsejos(nombreCategoria))
+        val consejoAdapter = ConsejoAdapter(obtenerListaDeConsejos(args.nombreCategoria))
         recyclerView.adapter = consejoAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
 
     fun obtenerListaDeConsejos(nombreCategoria: String): List<Consejo> {
-        if (nombreCategoria == "lactancia"){
+        if (nombreCategoria == "Lactancia"){
             return listOf( 
                 Consejo("Inicio temprano", "Amamanta a tu bebé tan pronto como sea posible después del nacimiento.", R.drawable.lactancia1),
                 Consejo("Buena prendida", "Asegúrate de que el bebé esté bien prendido al pecho para evitar dolor y asegurar una buena alimentación.", R.drawable.lactancia2),
@@ -50,7 +58,7 @@ class ConsejosFragment : Fragment() {
             )
         }
 
-        if(nombreCategoria == "sueño seguro"){
+        if(nombreCategoria == "Sueño seguro"){
             return listOf(
                 Consejo("Dormir de lado", "Desde el segundo trimestre, duerme sobre el lado izquierdo para mejorar la circulación sanguínea hacia el bebé.", R.drawable.dormir1),
                 Consejo("Evita colchones blandos", "Asegúrate de dormir en un colchón firme que mantenga una postura adecuada durante el embarazo.", R.drawable.dormir2),
@@ -60,7 +68,7 @@ class ConsejosFragment : Fragment() {
             )
         }
 
-        if (nombreCategoria == "alimentacion"){
+        if (nombreCategoria == "Alimentación"){
             return listOf(
                 Consejo("Alimentación equilibrada", "Consume una dieta variada que incluya frutas, verduras, cereales integrales, proteínas magras y lácteos.", R.drawable.alimantacion1),
                 Consejo("Ácido fólico diario", "Toma suplementos de ácido fólico antes y durante el embarazo para prevenir defectos del tubo neural.", R.drawable.alimentacion2),
@@ -73,7 +81,7 @@ class ConsejosFragment : Fragment() {
             );
         }
 
-        if (nombreCategoria == "enfermedades respiratorias"){
+        if (nombreCategoria == "Enfermedades respiratorias"){
             return listOf(
                 Consejo("Vacunación al día", "Aplicate la vacuna contra la gripe y la vacuna triple bacteriana acelular (dTpa) durante el embarazo para protegerte y proteger al bebé.", R.drawable.respiratorias1),
                 Consejo("Evita el contacto con enfermos", "Reducí el riesgo de contagio evitando el contacto cercano con personas que tengan síntomas respiratorios.", R.drawable.respiratorias2),

@@ -10,7 +10,7 @@ class CategoriasViewModel : ViewModel() {
         mutableListOf(
             CategoriaConsejo("Lactancia", R.drawable.lactancia1, false),
             CategoriaConsejo("Sueño seguro", R.drawable.dormir4, false),
-            CategoriaConsejo("Enfermedades Respiratorias", R.drawable.respiratorias2, false),
+            CategoriaConsejo("Enfermedades respiratorias", R.drawable.respiratorias2, false),
             CategoriaConsejo("Alimentación", R.drawable.alimentacion3, false),
             CategoriaConsejo("Epidemiología", R.drawable.dormir3, false)
         )
