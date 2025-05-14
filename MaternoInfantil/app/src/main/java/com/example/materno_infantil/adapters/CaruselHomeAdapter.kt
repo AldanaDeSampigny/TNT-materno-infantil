@@ -10,9 +10,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.materno_infantil.R
 import com.example.materno_infantil.model.CategoriaConsejo
 
-data class CarouselItem(val imageResId: Int, val titulo: String)
-
-class CaruselHomeAdapter(private val items: List<CategoriaConsejo>,
+class CaruselHomeAdapter(private val items: MutableList<CategoriaConsejo>,
                          private val onItemClick: (CategoriaConsejo) -> Unit) :
     RecyclerView.Adapter<CaruselHomeAdapter.CarouselViewHolder>() {
 
@@ -30,18 +28,30 @@ class CaruselHomeAdapter(private val items: List<CategoriaConsejo>,
 
     override fun onBindViewHolder(holder: CarouselViewHolder, position: Int) {
         val itemCarusel = items[position]
-        var like = false
         holder.tituloCarusel.text = itemCarusel.nombre
         holder.imagenCarusel.setImageResource(itemCarusel.imagenResId)
-        holder.likeImage.setOnClickListener{
-           like =  likeAnimation(holder.likeImage,R.raw.heart,like)
+
+        if (itemCarusel.like) {
+            holder.likeImage.setImageResource(R.drawable.heart_relleno)
+        } else {
+            holder.likeImage.setImageResource(R.drawable.heart_red)
         }
+
+        holder.likeImage.setOnClickListener {
+            itemCarusel.like = !itemCarusel.like
+            if (itemCarusel.like) {
+                holder.likeImage.setImageResource(R.drawable.heart_relleno)
+            } else {
+                holder.likeImage.setImageResource(R.drawable.heart_red)
+            }
+        }
+
         holder.itemView.setOnClickListener {
             onItemClick(itemCarusel)
         }
     }
 
-    private fun likeAnimation(imageView: ImageView, animation: Int, like:Boolean) : Boolean{
+    private fun likeAnimation(imageView: ImageView, like:Boolean) : Boolean{
         if(!like){
             imageView.setImageResource(R.drawable.heart_relleno)
         }
