@@ -23,7 +23,6 @@ class HomeFragment : Fragment() {
     private lateinit var items: MutableList<CategoriaConsejo>
     private val categoriaViewModel: CategoriasViewModel by viewModels()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -40,12 +39,14 @@ class HomeFragment : Fragment() {
 
         categoriaViewModel.items.observe(viewLifecycleOwner) { lista ->
             caruselAdapter = CaruselHomeAdapter(lista) { categoria ->
-                if (categoria.nombre.lowercase() == "novedades epidemiologicas") {
+                val categoriaNombre : String = categoria.nombre.toString()
+                if (categoriaNombre == "Novedades Epidemiologicas") {
                     val action = HomeFragmentDirections.actionHomeFragmentToNovedadesFragment()
                     view.findNavController().navigate(action)
                 } else {
                     val action =
-                        HomeFragmentDirections.actionHomeFragmentToConsejosFragment(categoria.nombre)
+                        HomeFragmentDirections.actionHomeFragmentToConsejosFragment(categoriaNombre)
+                    //Log.info("HOME", categoria.nombre)
                     view.findNavController().navigate(action)
                 }
             }
@@ -53,4 +54,3 @@ class HomeFragment : Fragment() {
         }
     }
 }
-
