@@ -37,17 +37,22 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         items = listOf(
-            CategoriaConsejo( "Lactancia",R.drawable.lactancia1,),
-            CategoriaConsejo( "Sueño seguro",R.drawable.dormir4,),
-            CategoriaConsejo("Enfermedades Repiratorias",R.drawable.respiratorias2,),
+            CategoriaConsejo( "Novedades epidemiologicas",R .drawable.epidemiologica),
+            CategoriaConsejo( "Lactancia",R.drawable.lactancia1),
+            CategoriaConsejo( "Sueño seguro",R.drawable.dormir4),
+            CategoriaConsejo( "Enfermedades Repiratorias",R.drawable.respiratorias2),
             CategoriaConsejo( "Alimentacion", R.drawable.alimentacion3),
-            CategoriaConsejo( "Epidemeologia",R .drawable.dormir3,),
         )
 
 
-        caruselAdapter = CaruselHomeAdapter(items){ categoria ->
-            val action = HomeFragmentDirections.actionHomeFragmentToConsejosFragment(categoria.nombre)
-            view.findNavController().navigate(action)
+        caruselAdapter = CaruselHomeAdapter(items) { categoria ->
+            if (categoria.nombre.lowercase() == "novedades epidemiologicas") {
+                val action = HomeFragmentDirections.actionHomeFragmentToNovedadesFragment()
+                view.findNavController().navigate(action)
+            } else {
+                val action = HomeFragmentDirections.actionHomeFragmentToConsejosFragment(categoria.nombre)
+                view.findNavController().navigate(action)
+            }
         }
         recyclerView.adapter = caruselAdapter
     }

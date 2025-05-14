@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_consejosFragment"
             app:destination="@id/consejosFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_novedadesFragment"
+            app:destination="@id/novedadesFragment" />
     </fragment>
     <fragment
         android:id="@+id/consejosFragment"
@@ -37,6 +40,11 @@
         android:id="@+id/controlesFragment"
         android:name="com.example.materno_infantil.controllers.ControlesFragment"
         android:label="ControlesFragment" />
+    <fragment
+        android:id="@+id/novedadesFragment"
+        android:name="com.example.materno_infantil.controllers.NovedadesFragment"
+        android:label="NovedadesFragment" />
+
 
 </navigation>
 

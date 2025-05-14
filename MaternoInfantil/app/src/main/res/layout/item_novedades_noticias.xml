@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardNovedadNoticias"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="4dp"
+    android:background="#EEEEEE"
+    android:layout_marginHorizontal="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#EEEEEE"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/TituloN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Titulo de Noticia"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FF6750A4"
+            android:paddingBottom="8dp" />
+
+        <ImageView
+            android:id="@+id/imgNovedadN"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Imagen de la novedad"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/SubtituloN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subtitulo de noticia"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:textColor="#ff6750a4"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/ContenidoN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contenido informativo de la noticia"
+            android:textSize="15sp"
+            android:textColor="#ff6750a4" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
