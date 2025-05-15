@@ -4,6 +4,8 @@ plugins {
     kotlin("plugin.serialization") version "2.0.21"
 
     id("androidx.navigation.safeargs.kotlin")
+
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -45,6 +47,10 @@ android {
 
 dependencies {
     val nav_version = "2.8.9"
+
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation ("com.google.firebase:firebase-auth-ktx")
+    implementation("com.firebaseui:firebase-ui-auth:9.0.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

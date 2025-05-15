@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1061086119996",
+    "project_id": "materno-infantil-6e8a2",
+    "storage_bucket": "materno-infantil-6e8a2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061086119996:android:062b1543e4e405f5ad1b39",
+        "android_client_info": {
+          "package_name": "com.example.materno_infantil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkBGufirFn69vq1b6k8-FRxcKFdavG7Jo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
