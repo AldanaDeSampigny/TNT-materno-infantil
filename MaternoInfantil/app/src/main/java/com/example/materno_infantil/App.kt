@@ -38,7 +38,7 @@ class App : AppCompatActivity() {
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            .setLogo(R.drawable.maternoinfantil)
+            .setLogo(R.drawable.imagenlogin)
             .setTheme(R.style.Theme_MaternoInfantil)
             .build()
 
