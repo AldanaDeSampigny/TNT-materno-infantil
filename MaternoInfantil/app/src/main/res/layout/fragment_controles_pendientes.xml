@@ -1,24 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/fragment_controles"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="16dp">
-
-<TextView
-    android:id="@+id/tituloControles"
+    android:id="@+id/layoutControlesPendientes"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Controles Prenatales a realizar"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:gravity="center"
-    android:paddingBottom="12dp" />
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rvControles"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tituloControles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Controles prenatales a realizar"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="16dp" />
 
+    <!-- Navegación del calendario -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <Button
+            android:id="@+id/btnAnteriorControles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;" />
+
+        <TextView
+            android:id="@+id/textMesControles"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Mes Año"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnSiguienteControles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&gt;" />
+    </LinearLayout>
+
+    <!-- Calendario -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCalendarioControles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="280dp"
+        android:layout_marginBottom="16dp"
+        android:overScrollMode="never" />
+
+    <!-- Lista de controles pendientes del mes -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Controles pendientes del mes"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerControlesMes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        android:overScrollMode="never" />
 </LinearLayout>

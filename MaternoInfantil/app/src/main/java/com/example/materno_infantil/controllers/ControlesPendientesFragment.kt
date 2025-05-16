@@ -1,26 +1,36 @@
 package com.example.materno_infantil.controllers
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.materno_infantil.adapters.CalendarControlesAdapter
 import com.example.materno_infantil.adapters.ControlAdapter
 import com.example.materno_infantil.databinding.FragmentControlesPendientesBinding
+import com.example.materno_infantil.models.ControlesViewModel
 import com.example.materno_infantil.models.ControlPrenatal
-import androidx.recyclerview.widget.LinearLayoutManager
+import java.time.LocalDate
+import java.time.YearMonth
+import java.time.format.TextStyle
+import java.util.*
 
-
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ControlesPendientesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ControlesPendientesFragment : Fragment() {
+
     private var _binding: FragmentControlesPendientesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: ControlAdapter
+
+    private var currentYear = LocalDate.now().year
+    private var currentMonth = LocalDate.now().monthValue
+
+    private val viewModel: ControlesViewModel by activityViewModels()
+
+    private val diasPendientes = mutableSetOf<LocalDate>()
+    private val diasRealizados = mutableSetOf<LocalDate>()
+
+    private var controles: List<ControlPrenatal> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,54 +41,86 @@ class ControlesPendientesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        adapter = ControlAdapter(getListaControles())
-        binding.rvControles.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvControles.adapter = adapter
+        binding.recyclerCalendarioControles.layoutManager = GridLayoutManager(requireContext(), 7)
+        binding.recyclerControlesMes.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.btnAnteriorControles.setOnClickListener {
+            currentMonth--
+            if (currentMonth == 0) {
+                currentMonth = 12
+                currentYear--
+            }
+            actualizarCalendario()
+        }
+
+        binding.btnSiguienteControles.setOnClickListener {
+            currentMonth++
+            if (currentMonth == 13) {
+                currentMonth = 1
+                currentYear++
+            }
+            actualizarCalendario()
+        }
+
+        // Observamos la lista de controles del ViewModel para actualizar la UI al cambiar
+        viewModel.controles.observe(viewLifecycleOwner, Observer { lista ->
+            controles = lista
+            separarDiasPorEstado()
+            actualizarCalendario()
+        })
     }
 
-    private fun getListaControles(): List<ControlPrenatal> {
-        return listOf(
-            ControlPrenatal("Semana 6-8", """
-            • Primera consulta
-            • Análisis de sangre
-            • Análisis de orina
-            • Ecografía inicial
-        """.trimIndent()),
+    private fun separarDiasPorEstado() {
+        diasPendientes.clear()
+        diasRealizados.clear()
 
-            ControlPrenatal("Semana 12", """
-            • Confirmación de edad gestacional
-            • Detección de malformaciones
-        """.trimIndent()),
-
-            ControlPrenatal("Semana 13-16", """
-            • Control prenatal (peso, presión, altura uterina, latido fetal)
-            • Resultado de estudios anteriores
-            • Consejos de alimentación y actividad física
-        """.trimIndent()),
-
-            ControlPrenatal("Semana 20", """
-            • Ecografía morfológica
-            • Control del desarrollo fetal
-        """.trimIndent()),
-
-            ControlPrenatal("Semana 24-28", """
-            • Test de glucosa
-            • Control de anemia
-        """.trimIndent()),
-
-            ControlPrenatal("Semana 35-37", """
-            • Hisopado para estreptococo grupo B
-        """.trimIndent()),
-
-            ControlPrenatal("Semana 37+", """
-            • Controles semanales
-            • Monitoreos fetales si es necesario
-        """.trimIndent())
-        )
+        controles.forEach {
+            if (it.realizado) diasRealizados.add(it.fechaControl)
+            else diasPendientes.add(it.fechaControl)
+        }
     }
 
+    private fun actualizarCalendario() {
+        val fechaActual = YearMonth.of(currentYear, currentMonth)
+        val primerDiaMes = fechaActual.atDay(1)
+        val primerDiaSemana = primerDiaMes.dayOfWeek.value % 7
+        val diasEnMes = fechaActual.lengthOfMonth()
+
+        val listaDias = mutableListOf<String>()
+        repeat(primerDiaSemana) { listaDias.add("") }
+        for (dia in 1..diasEnMes) listaDias.add(dia.toString())
+
+        // Actualizar el título del mes
+        binding.textMesControles.text = "${fechaActual.month.getDisplayName(TextStyle.FULL, Locale("es"))} $currentYear"
+
+        // Filtrar controles del mes actual
+        val controlesDelMes = controles.filter {
+            it.fechaControl.year == currentYear && it.fechaControl.monthValue == currentMonth
+        }
+
+        // Mapeo día -> control
+        val controlesMapeados = controlesDelMes.associateBy { it.fechaControl.dayOfMonth }
+
+        // Adapter de calendario con colores y clic
+        binding.recyclerCalendarioControles.adapter = CalendarControlesAdapter(
+            listaDias,
+            controlesMapeados,
+            diasPendientes,
+            diasRealizados
+        ) { diaSeleccionado ->
+            val fechaSeleccionada = LocalDate.of(currentYear, currentMonth, diaSeleccionado)
+            val control = controles.find { it.fechaControl == fechaSeleccionada }
+            if (control != null) {
+                val controlActualizado = control.copy(realizado = !control.realizado)
+                viewModel.actualizarControl(controlActualizado)
+            }
+        }
+
+        // Adapter para lista inferior de controles pendientes únicamente
+        val controlesPendientesDelMes = controlesDelMes.filter { !it.realizado }
+        binding.recyclerControlesMes.adapter = ControlAdapter(controlesPendientesDelMes)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

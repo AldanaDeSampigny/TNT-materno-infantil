@@ -67,6 +67,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.google.android.material:material:1.11.0")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
+
     // Views/Fragments integration
 
     implementation ("androidx.navigation:navigation-fragment-ktx:$nav_version")
@@ -77,4 +78,6 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+
 }

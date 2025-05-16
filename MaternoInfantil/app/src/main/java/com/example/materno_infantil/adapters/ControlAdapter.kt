@@ -1,9 +1,10 @@
 package com.example.materno_infantil.adapters
 
+
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materno_infantil.databinding.ItemControlPendienteBinding
-import android.view.ViewGroup
 import com.example.materno_infantil.models.ControlPrenatal
 
 class ControlAdapter(private val lista: List<ControlPrenatal>) :
@@ -18,9 +19,9 @@ class ControlAdapter(private val lista: List<ControlPrenatal>) :
     }
 
     override fun onBindViewHolder(holder: ControlViewHolder, position: Int) {
-        val item = lista[position]
-        holder.binding.tvSemana.text = item.semana
-        holder.binding.tvDescripcion.text = item.descripcion
+        val control = lista[position]
+        holder.binding.tvNombreControl.text = control.titulo
+        holder.binding.tvDescripcionControl.text = control.descripcion
     }
 
     override fun getItemCount(): Int = lista.size
