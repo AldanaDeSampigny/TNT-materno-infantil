@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.materno_infantil.controllers.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_consejosFragment"
             app:destination="@id/consejosFragment" />
@@ -19,7 +20,8 @@
     <fragment
         android:id="@+id/consejosFragment"
         android:name="com.example.materno_infantil.controllers.ConsejosFragment"
-        android:label="ConsejosFragment" >
+        android:label="ConsejosFragment"
+        tools:layout="@layout/fragment_consejos">
         <argument
             android:name="nombreCategoria"
             app:argType="string"
@@ -28,7 +30,8 @@
     <fragment
         android:id="@+id/calendarioVacunasFragment"
         android:name="com.example.materno_infantil.controllers.CalendarioVacunasFragment"
-        android:label="CalendarioVacunasFragment" />
+        android:label="CalendarioVacunasFragment"
+        tools:layout="@layout/fragment_calendario_vacunas"/>
     <fragment
         android:id="@+id/registroComidasFragment"
         android:name="com.example.materno_infantil.controllers.RegistroComidasFragment"
@@ -44,7 +47,8 @@
     <fragment
         android:id="@+id/novedadesFragment"
         android:name="com.example.materno_infantil.controllers.NovedadesFragment"
-        android:label="NovedadesFragment" />
+        android:label="NovedadesFragment"
+        tools:layout="@layout/fragment_novedades"/>
 
 
 </navigation>

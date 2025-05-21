@@ -76,7 +76,7 @@ dependencies {
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     implementation("com.airbnb.android:lottie:6.6.6")
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
-
+    implementation ("org.osmdroid:osmdroid-android:6.1.16")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
 
