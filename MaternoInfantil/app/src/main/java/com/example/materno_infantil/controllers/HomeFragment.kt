@@ -1,5 +1,6 @@
 package com.example.materno_infantil.controllers
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,22 +16,23 @@ import androidx.fragment.app.viewModels
 import com.example.materno_infantil.R
 import com.example.materno_infantil.adapters.CaruselHomeAdapter
 import com.example.materno_infantil.viewModels.CategoriasViewModel
+import com.example.materno_infantil.viewModels.LocationViewModel
+
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
 class HomeFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var caruselAdapter: CaruselHomeAdapter
     private val categoriaViewModel: CategoriasViewModel by viewModels()
+    private val locationViewModel: LocationViewModel by viewModels() // Obtén la instancia del ViewModel
     private lateinit var mapView: MapView
-    private lateinit var myLocationOverlay: MyLocationNewOverlay
-    private lateinit var userLocationMarker: Marker
+    private var userLocationMarker: Marker? = null
+    private val healthCenterMarkers = mutableListOf<Marker>()
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
 
@@ -76,36 +78,48 @@ class HomeFragment : Fragment() {
             recyclerView.adapter = caruselAdapter
         }
 
-        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-        } else {
-            enableMyLocation()
-        }
-    }
+        locationViewModel.currentLocation.observe(viewLifecycleOwner) { location ->
+            location?.let {
+                val userGeoPoint = GeoPoint(it.latitude, it.longitude)
+                mapView.controller.animateTo(userGeoPoint)
 
-    private fun enableMyLocation() {
-        myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(requireContext()), mapView)
-        myLocationOverlay.enableMyLocation()
-        myLocationOverlay.runOnFirstFix {
-            activity?.runOnUiThread {
-                val loc = myLocationOverlay.myLocation ?: return@runOnUiThread
-
-                mapView.controller.animateTo(loc)
-
-                if (!::userLocationMarker.isInitialized) {
+                if (userLocationMarker == null) {
                     userLocationMarker = Marker(mapView).apply {
-                        position = loc
+                        position = userGeoPoint
                         setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
                         icon = ContextCompat.getDrawable(requireContext(), R.drawable.location)
                         title = "Mi ubicación"
                     }
                     mapView.overlays.add(userLocationMarker)
                 } else {
-                    userLocationMarker.position = loc
+                    userLocationMarker?.position = userGeoPoint
                 }
                 mapView.invalidate()
             }
+        }
+
+        locationViewModel.lugaresSalud.observe(viewLifecycleOwner) { listaLugares ->
+            mapView.overlays.removeAll(healthCenterMarkers)
+            healthCenterMarkers.clear()
+
+            listaLugares.forEach { lugar ->
+                val lugarGeoPoint = GeoPoint(lugar.latitud, lugar.longitud)
+                val marker = Marker(mapView).apply {
+                    position = lugarGeoPoint
+                    setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                    icon = ContextCompat.getDrawable(requireContext(), R.drawable.lugares_salud)
+                    title = lugar.nombre
+                }
+                mapView.overlays.add(marker)
+                healthCenterMarkers.add(marker)
+            }
+            // Asegúrate de invalidar el mapa para que se redibujen los marcadores
+            mapView.invalidate()
+        }
+
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
         }
     }
 
@@ -115,7 +129,7 @@ class HomeFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                enableMyLocation()
+                // El ViewModel seguirá obteniendo la ubicación
             } else {
                 Toast.makeText(requireContext(), "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
             }

@@ -78,6 +78,7 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
     implementation ("org.osmdroid:osmdroid-android:6.1.16")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("com.android.volley:volley:1.2.1")
 
 
 }
