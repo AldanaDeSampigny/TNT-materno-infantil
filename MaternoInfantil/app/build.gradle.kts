@@ -78,6 +78,8 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
     implementation ("org.osmdroid:osmdroid-android:6.1.16")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.android.volley:volley:1.2.1")
 
 

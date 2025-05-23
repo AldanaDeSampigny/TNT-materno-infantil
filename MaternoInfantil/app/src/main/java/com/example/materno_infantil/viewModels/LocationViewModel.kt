@@ -1,73 +1,56 @@
 package com.example.materno_infantil.viewModels
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.materno_infantil.models.Lugar
+import com.google.android.gms.location.*
 
-class LocationViewModel(application: Application) : AndroidViewModel(application), LocationListener {
+class LocationViewModel(application: Application) : AndroidViewModel(application) {
+
     private val _currentLocation = MutableLiveData<Location?>()
     val currentLocation: LiveData<Location?> = _currentLocation
 
-    private val _lugaresSalud = MutableLiveData<MutableList<Lugar>>() // MutableLiveData de MutableList
+    private val _lugaresSalud = MutableLiveData<MutableList<Lugar>>()
     val lugaresSalud: LiveData<MutableList<Lugar>> = _lugaresSalud
 
-    private val locationManager =
-        application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-    init {
-        startLocationUpdates()
-        cargarLugaresSalud()
+    private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
+    private val locationRequest = LocationRequest.create().apply {
+        interval = 10000
+        fastestInterval = 5000
+        priority = Priority.PRIORITY_HIGH_ACCURACY
     }
 
-    @SuppressLint("MissingPermission")
-    private fun startLocationUpdates() {
-        if (ContextCompat.checkSelfPermission(
-                getApplication(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    0,
-                    0f,
-                    this
-                )
-            } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    0,
-                    0f,
-                    this
-                )
-            } else {
-                _currentLocation.value = null
-            }
-            val lastKnownLocationGPS =
-                locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            val lastKnownLocationNetwork =
-                locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(result: LocationResult) {
+            _currentLocation.value = result.lastLocation
+        }
+    }
 
-            if (lastKnownLocationGPS != null && lastKnownLocationNetwork != null) {
-                _currentLocation.value =
-                    if (lastKnownLocationGPS.time > lastKnownLocationNetwork.time) {
-                        lastKnownLocationGPS
-                    } else {
-                        lastKnownLocationNetwork
-                    }
-            } else {
-                _currentLocation.value = lastKnownLocationGPS ?: lastKnownLocationNetwork
+    init {
+        cargarLugaresSalud()
+        iniciarActualizacionUbicacion()
+    }
+
+    fun iniciarActualizacionUbicacion() {
+        if (ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                null
+            )
+
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    _currentLocation.value = location
+                }
             }
         } else {
             _currentLocation.value = null
@@ -75,7 +58,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun cargarLugaresSalud() {
-        val listaLugares = mutableListOf( // Creamos una MutableList directamente
+        val listaLugares = mutableListOf(
             Lugar(-42.7620, -65.0357, "Hospital Zonal Dr. Andrés R. Isola"),
             Lugar(-42.7673, -65.0377, "Sanatorio y Maternidad Santa María"),
             Lugar(-42.7718, -65.0442, "CAPS Ramón Carrillo"),
@@ -93,36 +76,8 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
         _lugaresSalud.value = listaLugares
     }
 
-    fun agregarLugarSalud(nuevoLugar: Lugar) {
-        val listaActual = _lugaresSalud.value ?: mutableListOf()
-        listaActual.add(nuevoLugar)
-        _lugaresSalud.value = listaActual
-    }
-
-    fun removerLugarSalud(nombreLugar: String) {
-        val listaActual = _lugaresSalud.value ?: mutableListOf()
-        listaActual.removeAll { it.nombre == nombreLugar }
-        _lugaresSalud.value = listaActual
-    }
-
-    override fun onLocationChanged(location: Location) {
-        _currentLocation.value = location
-    }
-
-    override fun onProviderDisabled(provider: String) {
-        // ...
-    }
-
-    override fun onProviderEnabled(provider: String) {
-        // ...
-    }
-
-    override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
-        // ...
-    }
-
     override fun onCleared() {
         super.onCleared()
-        locationManager.removeUpdates(this)
+        fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 }
