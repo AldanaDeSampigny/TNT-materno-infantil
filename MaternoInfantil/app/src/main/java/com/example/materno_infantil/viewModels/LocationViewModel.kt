@@ -68,7 +68,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
             Lugar(-42.7851714,-65.0597698, "CAPS Roque González"),
             Lugar(-42.7580, -65.0415, "CAPS Primitiva Azcárate (Barrio Roca)"),
             Lugar(-42.774, -65.040, "Consultorios de la Mujer"),
-            Lugar(-42.783, -65.050, "Centro Modular Sanitario 19 - Puerto Madryn"),
+            Lugar(-42.7830, -65.0370, "Centro Modular Sanitario 19"),
             Lugar(-42.764, -65.034, "Vita Medicina Reproductiva"),
             Lugar(-42.767, -65.037, "Sanatorio Y Maternidad Santa Maria"),
             Lugar(-42.767, -65.038, "Clínica Santa María"),
