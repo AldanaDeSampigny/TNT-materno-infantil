@@ -3,7 +3,9 @@ package com.example.materno_infantil.controllers
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
+import android.view.animation.BounceInterpolator
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -82,33 +84,74 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val ubicacion = locationViewModel.currentLocation.value
         val lugares = locationViewModel.lugaresSalud.value
 
-        userMarker?.remove()
         healthMarkers.forEach { it.remove() }
         healthMarkers.clear()
 
         ubicacion?.let {
             val latLng = LatLng(it.latitude, it.longitude)
-            userMarker = map.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .title("Mi ubicación")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-            )
+
+            if (userMarker == null) {
+                userMarker = map.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .title("Mi ubicación")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                )
+                userMarker?.tag = "usuario"
+                userMarker?.showInfoWindow()
+                animarRebote(userMarker!!)
+            } else {
+                userMarker?.position = latLng
+                animarRebote(userMarker!!)
+            }
+
             if (!yaMoviCamara) {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f))
                 yaMoviCamara = true
             }
         }
 
-        lugares?.forEach { lugar ->
+        lugares?.forEachIndexed { index, lugar ->
             val marker = map.addMarker(
                 MarkerOptions()
                     .position(LatLng(lugar.latitud, lugar.longitud))
                     .title(lugar.nombre)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
             )
-            marker?.let { healthMarkers.add(it) }
+            marker?.let {
+                it.tag = "lugar_$index"
+                animarRebote(it)
+                healthMarkers.add(it)
+            }
         }
+
+        map.setOnMarkerClickListener { marker ->
+            animarRebote(marker)
+            marker.showInfoWindow()
+            false
+        }
+    }
+
+    private fun animarRebote(marker: Marker) {
+        val handler = Handler()
+        val start = System.currentTimeMillis()
+        val duration = 500L
+        val interpolator = BounceInterpolator()
+
+        handler.post(object : Runnable {
+            override fun run() {
+                val elapsed = System.currentTimeMillis() - start
+                val t = 1.0f - interpolator.getInterpolation(elapsed.toFloat() / duration)
+                val offset = t * 0.3
+                marker.setAnchor(0.5f, (1.0f + offset).toFloat())
+
+                if (t > 0.0f) {
+                    handler.postDelayed(this, 16)
+                } else {
+                    marker.setAnchor(0.5f, 1.0f)
+                }
+            }
+        })
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
