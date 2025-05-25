@@ -14,6 +14,15 @@
         android:textColor="#000000"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/userInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Información del usuario"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"

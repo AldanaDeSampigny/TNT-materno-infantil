@@ -71,7 +71,8 @@ class ControlMedicoFragment : Fragment() {
                     return@setOnClickListener
                 }
                 val controlMedico = ControlMedico(
-                    fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                   // fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    fecha,
                     edadGestacional,
                     peso,
                     presion,

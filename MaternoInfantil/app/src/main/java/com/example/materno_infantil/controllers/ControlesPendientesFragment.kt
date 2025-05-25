@@ -2,6 +2,7 @@ package com.example.materno_infantil.controllers
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.TextStyle
 import java.util.*
+
 
 class ControlesPendientesFragment : Fragment() {
 
@@ -114,6 +116,7 @@ class ControlesPendientesFragment : Fragment() {
             if (control != null) {
                 val controlActualizado = control.copy(realizado = !control.realizado)
                 viewModel.actualizarControl(controlActualizado)
+
             }
         }
 

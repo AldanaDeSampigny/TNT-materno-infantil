@@ -1,7 +1,9 @@
 package com.example.materno_infantil.models
 
+import java.time.LocalDate
+
 data class ControlMedico(
-    val fecha: String,
+    val fecha: LocalDate,
     val edadGestacional: String,
     val peso: String,
     val presion: String,

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.materno_infantil.R
 import com.example.materno_infantil.App
 import android.content.Intent
+import android.widget.TextView
 import android.widget.Toast
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
@@ -40,7 +41,22 @@ class SettingsFragment : Fragment() {
 
         val buttonRegister = view.findViewById<Button>(R.id.btn_login)
         val buttonLogOut = view.findViewById<Button>(R.id.logoutButton)
+        val userInfoTextView = view.findViewById<TextView>(R.id.userInfoTextView)
         val user = FirebaseAuth.getInstance().currentUser
+
+        // informacion del usuario
+        if (user != null) {
+            val info = when {
+                user.isAnonymous -> "Sesión como invitado"
+                !user.displayName.isNullOrEmpty() -> "Usuario: ${user.displayName}"
+                !user.email.isNullOrEmpty() -> "Email: ${user.email}"
+                else -> "Sesión iniciada"
+            }
+            userInfoTextView.text = info
+        } else {
+            userInfoTextView.text = "No hay usuario autenticado"
+        }
+
 
         // se muestra el botón solo si el usuario es anónimo
         if (user?.isAnonymous == true) {
