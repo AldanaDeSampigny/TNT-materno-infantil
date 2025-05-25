@@ -49,6 +49,73 @@
             android:text="&gt;" />
     </LinearLayout>
 
+    <!-- Es horizontal para poner los dias -->
+    <LinearLayout
+        android:id="@+id/semanaHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Dom"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Lun"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Mar"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Mié"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Jue"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Vie"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Sáb"
+            android:gravity="center"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
     <!-- Calendario -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCalendarioControles"
